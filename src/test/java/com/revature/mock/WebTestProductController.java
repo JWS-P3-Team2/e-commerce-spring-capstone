@@ -33,7 +33,7 @@ public class WebTestProductController {
     @DisplayName("Should List All Posts When Making Get Request to Endpoint - /api/product/")
     public void shouldListAllProducts() throws Exception {
 
-        List<Product> product = new ArrayList<Product>;
+        List<Product> product = new ArrayList<Product>();
         product.add(new Product(1,1,50,"Poop","img/src.gif","Poop",true));
         when(productservice.findAll()).thenReturn(product);
 

@@ -3,6 +3,7 @@ import com.revature.annotations.Authorized;
 import com.revature.dtos.CreateOrderRequest;
 import com.revature.dtos.OrderResponse;
 import com.revature.models.Order;
+import com.revature.models.OrderDetail;
 import com.revature.models.User;
 import com.revature.services.AuthService;
 import com.revature.services.OrderService;
@@ -52,6 +53,19 @@ public class OrderController {
         }
         return ResponseEntity.ok(optional.get());
     }
+//    @Authorized
+//    @GetMapping("/{id}")
+//    public ResponseEntity<OrderDetail> findById(@PathVariable("id") int id, HttpServletRequest req){
+//        String token = req.getHeader("Authorization");
+//        User user = authService.getUserByAuthToken(token);
+//
+//        Optional<OrderDetail> optional = orderDetailService.findById(id);
+//        if(!optional.isPresent() || (optional.get().getOrderId().getUserId().getId() != user.getId())){
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(optional.get());
+//    }
+
     @Authorized
     @PostMapping
     public ResponseEntity<OrderResponse> createAnOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest, HttpServletRequest req) {
