@@ -28,6 +28,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -84,6 +85,30 @@ public class TestOrderDetailController {
 //                .andDo(print())
 //                .andReturn();
 //    }
+
+@Test
+@DisplayName("This takes an order detail request and creates an order detail response - /api/orderdetail")
+public void createOrderDetail() throws Exception {
+    //User Object
+    String jsonString2 = "{\"id\":\"0\",\"email\":\"test@test.com\",\"firstName\":\"first\",\"lastName\":\"last\",\"active\":\"true\",\"admin\":\"true\"}";
+    ObjectMapper objectMapper2 = new ObjectMapper();
+    User user = objectMapper2.readValue(jsonString2, User.class);
+
+    String jsonString1 = "{\"id\":1,\"ordersId\":1,\"productId\":1,\"quantity\":1}";
+    ObjectMapper objectMapper = new ObjectMapper();
+    OrderDetailResponse odr = objectMapper.readValue(jsonString1,OrderDetailResponse.class);
+
+    when(authService.getUserByAuthToken(anyString())).thenReturn(user);
+    when(orderDetailService.createOrderDetail(any())).thenReturn(odr);
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/orderdetail")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content("{\"productId\":1,\"orderId\":1,\"quantity\":1}"))
+            .andExpect(MockMvcResultMatchers.status().is(200))
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andDo(print())
+            .andReturn();
+}
 
     @Test
     @DisplayName("Get order detail by id  - /api/orderdetail/order/{id}")
