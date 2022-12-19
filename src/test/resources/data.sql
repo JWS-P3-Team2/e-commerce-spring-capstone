@@ -173,15 +173,16 @@ INSERT INTO PRODUCT_REVIEW (id,comment,rating,product_id,user_id) VALUES (
     3,
     3,
     2
-)
+);
 
 --inactive user for postman test
-INSERT INTO users (email, password, first_name, last_name, is_active, is_admin) VALUES (
+INSERT INTO users (email, password, first_name, last_name, is_active, is_admin) VALUES
+(
     --8
     'inactive@example.com',
     'guest',
     'Inactive',
     'User',
-    true,
+    false,
     false
 );
